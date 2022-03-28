@@ -1,0 +1,60 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background: url('/images/lo.png');
+    background-size: cover;
+   
+}
+
+.login{
+    width: 350px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    color: White;
+}
+
+.login h1{
+    font-size: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 40px 0;
+}
+
+.login p{
+    font-size: 20px;
+    margin: 15px 0;
+    
+}
+
+
+.login input{
+    font-size: 16px;
+    width: 100%;
+    padding: 15px 10px;
+    border: 0;
+    outline: none;
+    border-radius: 5px;
+}
+
+.login button{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 10px 20px;
+    width: 50%;
+    border-radius: 5px;
+    cursor: pointer;
+   flex-direction: column;
+   
+}
+
+.login button:hover{
+    background-color: #d87c30;
+}
+
