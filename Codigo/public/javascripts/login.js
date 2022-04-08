@@ -2,7 +2,7 @@ async function login() {
     try {
         let obj = {
             nome: document.getElementById("nome").value,
-            password: document.getElementById("password").value
+            password:document.getElementById("password").value
         }
         let user = await $.ajax({
             url: '/api/users/login',
@@ -11,15 +11,15 @@ async function login() {
             data: JSON.stringify(obj),
             contentType: 'application/json'
         });
-        sessionStorage.setItem("userId",user.id_u);
-        window.location = "home.html";
+        
+        window.location.href = 'home.html';
+       
     } catch (err) {
-        alert("Username ou password errada!")
+        alert("Preencha os campos ou o Username e a password estão erradas!")
 }
 }
 
 async function addUser() {
-  
     try {
         let users = {
             
@@ -27,9 +27,8 @@ async function addUser() {
            use_email: document.getElementById("email").value,
            use_pass: document.getElementById("password_1").value,      
            
-        }
-       
-
+        } 
+        
         let result = await $.ajax({
             url: "/api/users/adduser",
             method: "post",
@@ -37,10 +36,12 @@ async function addUser() {
             data: JSON.stringify(users),
             contentType: "application/json"
         });
-        
+    
         alert("Conta criada")
-        window.location = "home.html";
+    mywindow = window,open('secret.html', '_blank', 'height=500,width=500');
+    window.location.reload();
+    
     } catch (err) {
-        console.log(err);
+        alert("Preencha os campos ou o email já está a ser utilizado por outro utilizador!");
     }
 }
