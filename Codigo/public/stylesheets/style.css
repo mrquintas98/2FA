@@ -87,6 +87,14 @@ form.sign-in-form {
   font-size: 1.1rem;
 }
 
+#timer{
+  font-size: 23px;
+  color: red;
+  text-align: center;
+  line-height: 55px;
+  transition: 0.5s;
+}
+
 .input-field input {
   background: none;
   outline: none;
@@ -178,6 +186,7 @@ form.sign-in-form {
   width: 100%;
   transition: transform 1.1s ease-in-out;
   transition-delay: 0.4s;
+  
 }
 
 .panel {

@@ -15,5 +15,25 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/users',userRouter);
 
+var cronJob = require("cron").CronJob;
+const axios = require('axios');
+
+new cronJob("*/30 * * * * *", function(){
+    console.log("Refresh Secrets");
+
+    axios.put('http://localhost:3000/api/users/updatesecrets', {
+        todo: 'Update Secrets'
+    })
+    .then(res => {
+       // console.log(`statusCode: ${res.status}`)
+    })
+    .catch(error => {
+        console.error(error)
+    })
+    
+},null, true);
+
+
+
 module.exports = app;
 
