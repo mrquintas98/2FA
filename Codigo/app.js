@@ -14,6 +14,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/users',userRouter);
+app.use(function(req, res) {
+    res.redirect('/');
+});
 
 var cronJob = require("cron").CronJob;
 const axios = require('axios');
