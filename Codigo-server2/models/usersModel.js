@@ -32,9 +32,8 @@ module.exports.login = async function (email, password) {
            // delete result.rows[0].use_pass;
            let utilizador = result3.rows[0]; 
         if (result.rows.length > 0 && (email!= '' && valor!= '')){
-        
-            if(result.rows.length > 0){
-                var mailOptions = {
+                
+            var mailOptions = {
                     from: 'teste.2FA.teste@gmail.com',
                     to: email,
                     subject: 'Your secret to continue!',
@@ -53,12 +52,15 @@ module.exports.login = async function (email, password) {
                 status: 200,
                 result: utilizador
             };
+            
+            }
 
-            }else return {
-                status: 200,
-                result: result.rows[0]
+            else return { 
+                status: 401, 
+                result: { msg: "Wrong email or password" } 
             };
-    }
+
+
  } catch (err) {
         console.log(err);
 
@@ -204,4 +206,3 @@ module.exports.VerifyToken = async function (secret,email) {
     }
 
 }
-
