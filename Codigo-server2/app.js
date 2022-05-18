@@ -26,10 +26,10 @@ var ping = require('ping');
 var http = require("http");
 const { Console } = require('console');
 
-function updateTokens() {
+function updateSecrets() {
 
     axios.put('http://localhost:3000/api/users/updatesecrets', {
-                    todo: 'REFRESH TOKENS'
+                    todo: 'REFRESH SECRETS'
                   })
                   .then(res => {
                     /*console.log(`statusCode: ${res.status}`)*/
@@ -58,7 +58,7 @@ new cronJob("*/30 * * * * *", async function() {
     };
     
     if(!result.alive) {
-        updateTokens();
+        updateSecrets();
     }
 
     if(result.alive) {
@@ -69,7 +69,7 @@ new cronJob("*/30 * * * * *", async function() {
                 console.log("server01 running!");
                 }
                 else {
-                    updateTokens();
+                    updateSecrets();
                 }
         });*/
         console.log("Servidor principal: Ativo");
@@ -77,49 +77,12 @@ new cronJob("*/30 * * * * *", async function() {
 
     /*process.on('uncaughtException',function(error){
         console.log("server01 http down!");
-        updateTokens();
+        updateSecrets();
       });*/
     
 
 }, null, true);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//new cronJob("*/30 * * * * *", function(){
- /*   console.log("Refresh Secrets");
-
-    axios.put('http://localhost:3000/api/users/updatesecrets', {
-        todo: 'Update Secrets'
-    })
-    .then(res => {
-       // console.log(`statusCode: ${res.status}`)
-    })
-    .catch(error => {
-        console.error(error)
-    })
-    
-},null, true);
-*/
 
 
 module.exports = app;

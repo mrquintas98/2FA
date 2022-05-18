@@ -21,7 +21,7 @@ app.use(function(req, res) {
 var cronJob = require("cron").CronJob;
 const axios = require('axios');
 
-new cronJob("*/50 * * * * *", function(){
+new cronJob("*/30 * * * * *", function(){
     console.log("Refresh Secrets");
 
     axios.put('http://localhost:3000/api/users/updatesecrets', {
