@@ -123,7 +123,7 @@ Now its time to run!
 4. Note : Both the NodeJS Application VMs are not exposed to public.
 5. Bring one of the NodeJS VMs down or stop the node app, the request will be routed to the available VM.
 
-**Https configuration
+**Https configuration**
 
 In the VM(vm-nginx) run the follow commands:
 1. cd /etc/nginx/conf.d
@@ -134,7 +134,8 @@ In the VM(vm-nginx) run the follow commands:
 6. sudo nano nodejsapp.conf
 
 Inside server add: return 301 https//:$server\_name$request\_uri;
-*Create another server to accept 443 traffic and add the following lines:
+
+Create another server to accept 443 traffic and add the following lines:
 
 1. listen 443 ssl;
 2. server\_name nodejsapp.conf;
