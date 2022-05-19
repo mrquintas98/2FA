@@ -59,30 +59,32 @@ Step 1. **Create a Node App Configuration File in NGINX**
 2. Create a **nodejsapp.conf** under **/etc/nginx/conf.d** directory
 3. Add the below contents in the **nodejsapp.conf file.**
 
->*server {*
->
->*listen 80;
->server\_name **Public IP of vm-nginx**; #For example: server\_name 52.197.168.198*
->
->***location / {**
->*proxy\_http\_version 1.1;*
->*proxy\_set\_header Upgrade $http\_upgrade;*
->*proxy\_set\_header Connection ‘upgrade’;*
->*proxy\_set\_header Host $host;*
->*root /usr/share/nginx/html;*
->*index index.html index.htm;*
->*try\_files $uri $uri/ /index.html =404;*
->}*
->
->***location /api {**
->*proxy\_http\_version 1.1;
->*proxy\_set\_header Upgrade $http\_upgrade;
->*proxy\_set\_header Connection ‘upgrade’;
->*proxy\_set\_header X-Forwarded-For $remote\_addr;
->*proxy\_set\_header Host $http\_host;
->**proxy\_pass*** http://nodeservers***;**
->}
->}*
+```
+server {
+
+listen 80;
+server\_name Public IP of vm-nginx; #For example: server_name 52.197.168.198
+
+location / {
+proxy\_http\_version 1.1;
+proxy\_set\_header Upgrade $http\_upgrade;
+proxy\_set\_header Connection ‘upgrade’;
+proxy\_set\_header Host $host;
+root /usr/share/nginx/html;
+index index.html index.htm;
+try\_files $uri $uri/ /index.html =404;
+}
+
+location /api {
+proxy\_http\_version 1.1;
+proxy\_set\_header Upgrade $http\_upgrade;
+proxy\_set\_header Connection ‘upgrade’;
+proxy\_set\_header X-Forwarded-For $remote\_addr;
+proxy\_set\_header Host $http\_host;
+proxy\_pass http://nodeservers;
+}
+}
+```
 
 location / it’s the default configuration for the web page of nginx, if there is a problem in showing your web app in browser just delete it.
 
@@ -102,12 +104,14 @@ Step 2 : **Modify the existing nginx.conf file** **in nginx**
 3. Edit the existing nginx.conf -> **sudo vi /etc/nginx/nginx.conf** file
 4. Add the following lines in **nginx.conf** file & save it.
 
->*upstream nodeservers {*
->
->*server 10.0.0.5:3000; #Replace 10.0.0.5 with the private ip of vm-nodejs1 and your port(you can find it in bin/www)*
->
->*server 10.0.0.6:3000; # Replace 10.0.0.6 with the private ip of vm-nodejs2 and your port(you can find it in bin/www)
->}*
+```
+*upstream nodeservers {*
+
+*server 10.0.0.5:3000; #Replace 10.0.0.5 with the private ip of vm-nodejs1 and your port(you can find it in bin/www)*
+
+*server 10.0.0.6:3000; # Replace 10.0.0.6 with the private ip of vm-nodejs2 and your port(you can find it in bin/www)
+}*
+```
 
 Step 3:
 
@@ -147,6 +151,7 @@ Create another server to accept 443 traffic and add the following lines:
 >5. save $ exit
 >6. sudo nginx -t to check if there is any compiling error;
 >7. sudo nginx -s reload
+
 
 
 
