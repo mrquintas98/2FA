@@ -59,6 +59,7 @@ Step 1. **Create a Node App Configuration File in NGINX**
 2. Create a **nodejsapp.conf** under **/etc/nginx/conf.d** directory
 3. Add the below contents in the **nodejsapp.conf file.**
 
+
 ```
 server {
 
@@ -85,6 +86,7 @@ proxy\_pass http://nodeservers;
 }
 }
 ```
+
 
 location / it’s the default configuration for the web page of nginx, if there is a problem in showing your web app in browser just delete it.
 
