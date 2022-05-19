@@ -82,7 +82,7 @@ Step 1. **Create a Node App Configuration File in NGINX**
 >*proxy\_set\_header Host $http\_host;
 >**proxy\_pass*** http://nodeservers***;**
 >}
->}*
+>}
 
 location / it’s the default configuration for the web page of nginx, if there is a problem in showing your web app in browser just delete it.
 
