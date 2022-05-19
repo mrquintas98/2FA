@@ -107,12 +107,12 @@ Step 2 : **Modify the existing nginx.conf file** **in nginx**
 4. Add the following lines in **nginx.conf** file & save it.
 
 ```
-*upstream nodeservers {*
+upstream nodeservers {
+ 
+server 10.0.0.5:3000; #Replace 10.0.0.5 with the private ip of vm-nodejs1 and your port(you can find it in bin/www)
 
-*server 10.0.0.5:3000; #Replace 10.0.0.5 with the private ip of vm-nodejs1 and your port(you can find it in bin/www)*
-
-*server 10.0.0.6:3000; # Replace 10.0.0.6 with the private ip of vm-nodejs2 and your port(you can find it in bin/www)
-}*
+server 10.0.0.6:3000; # Replace 10.0.0.6 with the private ip of vm-nodejs2 and your port(you can find it in bin/www)
+}
 ```
 
 Step 3:
