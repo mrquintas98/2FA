@@ -63,13 +63,13 @@ Step 1. **Create a Node App Configuration File in NGINX**
 server\_name **Public IP of vm-nginx**; #For example: server\_name 52.197.168.198*
 
 ***location / {**
-*proxy\_http\_version 1.1;
-*proxy\_set\_header Upgrade $http\_upgrade;
-*proxy\_set\_header Connection ‘upgrade’;
-*proxy\_set\_header Host $host;
-*root /usr/share/nginx/html;
-*index index.html index.htm;
-*try\_files $uri $uri/ /index.html =404;
+*proxy\_http\_version 1.1;*
+*proxy\_set\_header Upgrade $http\_upgrade;*
+*proxy\_set\_header Connection ‘upgrade’;*
+*proxy\_set\_header Host $host;*
+*root /usr/share/nginx/html;*
+*index index.html index.htm;*
+*try\_files $uri $uri/ /index.html =404;*
 }*
 
 ***location /api {**
