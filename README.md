@@ -22,26 +22,28 @@ Once SSH is setup you can open the VM. We used a bastion to connect the VM there
 
 Install Latest Version of NGINX on the VM(vm-nginx) as shown below and run below commands in the VM(vm-nginx):
 
-
-1. RUN Command : sudo apt update
-2. RUN Command : sudo apt install nginx
-3. RUN Command : sudo systemctl status nginx
-4. sudo systemctl restart nginx
-5. RUN Command : nginx -v
+>1. sudo apt update
+>2. sudo apt install nginx
+>3. sudo systemctl status nginx
+>4. sudo systemctl restart nginx
+>5. nginx -v
 
 **Install NodeJS in other 2 VMs(vm-nodejs1, vm-nodejs2).**
 
 **SSH in the other 2 VMs (vm-nodejs1, vm-nodejs2) and run below commands in the command line.**
 
-1. RUN Command : curl -sL https://deb.nodesource.com/setup\_12.x -o nodesource\_setup.sh.
-1. RUN Command : sudo bash nodesource\_setup.sh
-1. RUN Command : sudo apt install nodejs
-1. RUN Command : node -v
-1. RUN Command : npm -v
+>1. curl -sL https://deb.nodesource.com/setup\_12.x -o nodesource\_setup.sh.
+>2. sudo bash nodesource\_setup.sh
+>3. sudo apt install nodejs
+>4. node -v
+>5. npm -v
 
-1.Push your Code in a Github repo.
-2. Clone the nodejs sample code in both the VMs(vm-nodejs1, vm-nodejs2).
-3. Run the App in the VMs (vm-nodejs1, vm-nodejs2) with command: npm start.
+Push your Code in a Github repo.
+
+Clone the nodejs sample code in both the VMs(vm-nodejs1, vm-nodejs2).
+
+Run the App in the VMs (vm-nodejs1, vm-nodejs2) with command: npm start.
+
 
 If some error appear while node installation, probably there is some package left to install, just run the command suggested.
 
@@ -57,30 +59,30 @@ Step 1. **Create a Node App Configuration File in NGINX**
 2. Create a **nodejsapp.conf** under **/etc/nginx/conf.d** directory
 3. Add the below contents in the **nodejsapp.conf file.**
 
-*server {*
-
-*listen 80;
-server\_name **Public IP of vm-nginx**; #For example: server\_name 52.197.168.198*
-
-***location / {**
-*proxy\_http\_version 1.1;*
-*proxy\_set\_header Upgrade $http\_upgrade;*
-*proxy\_set\_header Connection ‘upgrade’;*
-*proxy\_set\_header Host $host;*
-*root /usr/share/nginx/html;*
-*index index.html index.htm;*
-*try\_files $uri $uri/ /index.html =404;*
-}*
-
-***location /api {**
-*proxy\_http\_version 1.1;
-*proxy\_set\_header Upgrade $http\_upgrade;
-*proxy\_set\_header Connection ‘upgrade’;
-*proxy\_set\_header X-Forwarded-For $remote\_addr;
-*proxy\_set\_header Host $http\_host;
-**proxy\_pass*** http://nodeservers***;**
-}
-}*
+>*server {*
+>
+>*listen 80;
+>server\_name **Public IP of vm-nginx**; #For example: server\_name 52.197.168.198*
+>
+>***location / {**
+>*proxy\_http\_version 1.1;*
+>*proxy\_set\_header Upgrade $http\_upgrade;*
+>*proxy\_set\_header Connection ‘upgrade’;*
+>*proxy\_set\_header Host $host;*
+>*root /usr/share/nginx/html;*
+>*index index.html index.htm;*
+>*try\_files $uri $uri/ /index.html =404;*
+>}*
+>
+>***location /api {**
+>*proxy\_http\_version 1.1;
+>*proxy\_set\_header Upgrade $http\_upgrade;
+>*proxy\_set\_header Connection ‘upgrade’;
+>*proxy\_set\_header X-Forwarded-For $remote\_addr;
+>*proxy\_set\_header Host $http\_host;
+>**proxy\_pass*** http://nodeservers***;**
+>}
+>}*
 
 location / it’s the default configuration for the web page of nginx, if there is a problem in showing your web app in browser just delete it.
 
@@ -100,12 +102,12 @@ Step 2 : **Modify the existing nginx.conf file** **in nginx**
 3. Edit the existing nginx.conf -> **sudo vi /etc/nginx/nginx.conf** file
 4. Add the following lines in **nginx.conf** file & save it.
 
-*upstream nodeservers {*
-
-*server 10.0.0.5:3000; #Replace 10.0.0.5 with the private ip of vm-nodejs1 and your port(you can find it in bin/www)*
-
-*server 10.0.0.6:3000; # Replace 10.0.0.6 with the private ip of vm-nodejs2 and your port(you can find it in bin/www)
-}*
+>*upstream nodeservers {*
+>
+>*server 10.0.0.5:3000; #Replace 10.0.0.5 with the private ip of vm-nodejs1 and your port(you can find it in bin/www)*
+>
+>*server 10.0.0.6:3000; # Replace 10.0.0.6 with the private ip of vm-nodejs2 and your port(you can find it in bin/www)
+>}*
 
 Step 3:
 
@@ -126,24 +128,25 @@ Now its time to run!
 **Https configuration**
 
 In the VM(vm-nginx) run the follow commands:
-1. cd /etc/nginx/conf.d
-2. sudo cp nodejsapp.conf nodejsapp.conf.bak
-3. sudo mkdir /etc/nginx/ssl
-4. sudo chmod 700 /etc/nginx/ssl
-5. sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/example.key -out /etc/nginx/ssl/example.crt
-6. sudo nano nodejsapp.conf
+
+>1. cd /etc/nginx/conf.d
+>2. sudo cp nodejsapp.conf nodejsapp.conf.bak
+>3. sudo mkdir /etc/nginx/ssl
+>4. sudo chmod 700 /etc/nginx/ssl
+>5. sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/example.key -out /etc/nginx/ssl/example.crt
+>6. sudo nano nodejsapp.conf
 
 Inside server add: return 301 https//:$server\_name$request\_uri;
 
 Create another server to accept 443 traffic and add the following lines:
 
-1. listen 443 ssl;
-2. server\_name nodejsapp.conf;
-3. ssl\_certificate /etc/nginx/ssl/example.crt;
-4. ssl\_certificate_key /etc/nginx/ssl/example.key;
-5. save $ exit
-6. sudo nginx -t to check if there is any compiling error;
-7. sudo nginx -s reload
+>1. listen 443 ssl;
+>2. server\_name nodejsapp.conf;
+>3. ssl\_certificate /etc/nginx/ssl/example.crt;
+>4. ssl\_certificate_key /etc/nginx/ssl/example.key;
+>5. save $ exit
+>6. sudo nginx -t to check if there is any compiling error;
+>7. sudo nginx -s reload
 
 
 
