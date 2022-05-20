@@ -1,0 +1,30 @@
+Select use_secret 
+        from utilizador
+        where use_email = $1
+
+
+
+Select * from utilizador where use_email = $1
+
+
+
+Select use_nome,use_email,use_pass 
+     from utilizador 
+     where use_nome = $1 and use_email = $2 and use_pass = $3
+
+
+Insert into utilizador(use_nome,use_email,use_pass,use_secret) values($1,$2,$3,$4)
+
+
+
+Select * from utilizador
+
+
+update utilizador 
+            set use_secret = $1 where id_u = $2
+
+
+
+Select use_secret 
+        from utilizador 
+        where use_email = $1 

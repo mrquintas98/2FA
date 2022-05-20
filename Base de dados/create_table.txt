@@ -1,0 +1,6 @@
+create table Utilizador( ID_U serial, 
+					Use_nome varchar (50) not null, 
+                    			Use_email varchar (50) not null,
+					Use_pass varchar (100) not null,
+					Use_secret varchar(1000)
+					primary Key ( Id_U));
